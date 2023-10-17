@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="50dp"
-            android:text="Log In"
+            android:text="Forget Password"
             android:textColor="#2799A5"
-            android:textSize="50sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <EditText
@@ -37,47 +37,12 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/fieldtextt"
             android:ems="10"
-            android:hint="Enter your username"
+            android:hint="Enter your Email"
             android:inputType="text"
             android:textAlignment="center"
             android:textColor="#2799A5"
             android:textColorHint="#2799A5"
             android:textStyle="bold"
-
-            />
-
-        <EditText
-            android:id="@+id/EditPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:autoText="false"
-            android:background="@drawable/fieldtextt"
-            android:ems="10"
-            android:hint="Enter your password"
-            android:inputType="textPassword"
-            android:textAlignment="center"
-            android:textColor="#2799A5"
-            android:textColorHint="#2799A5"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/ForgotPassword"
-            android:layout_width="235dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="0.1mm"
-            android:layout_marginEnd="32dp"
-            android:background="@android:color/transparent"
-            android:text="Forget password"
-            android:textAlignment="center"
-            android:textColor="#2799A5"
-            android:textSize="10sp"
-            android:textStyle="bold"
-
 
             />
 
@@ -89,7 +54,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/buttonloginsignup"
-            android:text="Login"
+            android:text="Send"
             android:textColor="#2799A5"
             android:textSize="22sp"
             android:textStyle="bold" />
