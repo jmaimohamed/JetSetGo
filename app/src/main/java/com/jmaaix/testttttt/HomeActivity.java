@@ -13,6 +13,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private FrameLayout frameLayout;
     private BottomNavigationView bottomNavigationView;
+    private String loggedInUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +22,14 @@ public class HomeActivity extends AppCompatActivity {
 
         frameLayout = findViewById(R.id.frameH);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        loggedInUsername = getIntent().getStringExtra("username");
 
-
+        /*String loggedInUsername = getIntent().getStringExtra("username");
+      //  UserAccountF userAccountFragment = UserAccountF.newInstance(loggedInUsername);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameH, new UserAccountF(loggedInUsername))
+                .commit();*/
 
       //  String username = getIntent().getStringExtra("username");
      //   TextView textViewUsername = findViewById(R.id.Username_recup);
@@ -56,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
             else if (itemId == R.id.User) {
-                replaceFragment(new UserAccountF());
+                replaceFragment(UserAccountF.newInstance(loggedInUsername));
             }
 
 
