@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
         frameLayout = findViewById(R.id.frameH);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        loggedInUsername = getIntent().getStringExtra("username");
+        loggedInUsername = getIntent().getStringExtra("Email");
 
         /*String loggedInUsername = getIntent().getStringExtra("username");
       //  UserAccountF userAccountFragment = UserAccountF.newInstance(loggedInUsername);

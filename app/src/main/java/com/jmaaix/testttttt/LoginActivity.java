@@ -18,14 +18,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Room database
         appDatabase = UserDatabase.getInstance(this);
 
         Button RegisterButton = findViewById(R.id.Register);
         Button ForgotPasswordButton = findViewById(R.id.ForgotPassword);
         Button LoginButton = findViewById(R.id.LoginButton);
         Button FingerPrintButton = findViewById(R.id.FingerPrint);
-        EditText editUsername = findViewById(R.id.EditUsername);
+        EditText editEmail = findViewById(R.id.EditUsername);
         EditText editPassword = findViewById(R.id.EditPassword);
 
         RegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -47,24 +46,24 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Get the entered values
-                String enteredUsername = editUsername.getText().toString();
-                String enteredPassword = editPassword.getText().toString();
 
-                // Perform database access to validate the user
-                User user = appDatabase.userDao().getUserByUsername(enteredUsername);
+                String Email = editEmail.getText().toString();
+                String Password = editPassword.getText().toString();
 
-                if (user != null && user.getPassword().equals(enteredPassword)) {
-                    // Authentication successful
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtra("username", enteredUsername);
-                    startActivity(intent);
-                    Toast.makeText(LoginActivity.this, "Authentication successful", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Authentication failed
-                    Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                User user = appDatabase.userDao().getUserByEmail(Email);
+
+                if (user != null && user.getPassword().equals(Password))
+                    {
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("Email", Email);
+                        startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                    }
+                else
+                    {
+                        Toast.makeText(LoginActivity.this, "Retry !!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
         });
     }
 }

@@ -2,14 +2,20 @@ package com.jmaaix.testttttt;
 
 import static android.text.style.TtsSpan.ARG_USERNAME;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,27 +35,31 @@ public class UserAccountF extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    private String username;
+    private String Email;
 
-    TextView userIdTextView ;
-    TextView usernameTextView ;
-    TextView passwordTextView;
+    EditText usernameEditView ;
+    EditText TelephoneEditView ;
+    EditText PaysEditView;
+    EditText PasswordEditView ;
+    EditText EmailEditView;
     private List<User> userList = new ArrayList<User>();
     public UserAccountF() {
         // Required empty public constructor
 
-    } public UserAccountF(String username) {
+    } public UserAccountF(String Email) {
         // Required empty public constructor
-        this.username= username;
+        this.Email= Email;
     }
 
 
 
-    public static UserAccountF newInstance(String username) {
+    public static UserAccountF newInstance(String Email) {
         UserAccountF fragment = new UserAccountF();
-        fragment.username = username;
+        fragment.Email = Email;
         return fragment;
     }
+    private Button updateUsernameButton;
+    private Button delete;
 
     private UserDatabase userDatabase;
     private UserDao userDao;
@@ -60,6 +70,8 @@ public class UserAccountF extends Fragment {
         // Initialize Room database and UserDao
         userDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
         userDao = userDatabase.userDao();
+        updateUsernameButton = view.findViewById(R.id.Update);
+        delete = view.findViewById(R.id.Delete);
 
         // Retrieve the username of the logged-in user (from the login process)
        // String loggedInUsername = getArguments().getString(ARG_USERNAME);
@@ -68,23 +80,68 @@ public class UserAccountF extends Fragment {
         // Retrieve the user information using the username
 
 
-        userIdTextView = view.findViewById(R.id.userIdTextView);
-        usernameTextView = view.findViewById(R.id.usernameTextView);
-        passwordTextView = view.findViewById(R.id.passwordTextView);
+        usernameEditView = view.findViewById(R.id.Username);
+        EmailEditView  = view.findViewById(R.id.Email);
+        TelephoneEditView  = view.findViewById(R.id.Telephone);
+        PaysEditView  = view.findViewById(R.id.Pays);
+        PasswordEditView= view.findViewById(R.id.Password);
 
-
-        User user = userDao.getUserByUsername(this.username);
+        User user = userDao.getUserByEmail(this.Email);
         Log.d("UserAccountF", "User found: " + user);
         if (user != null) {
             Log.d("UserAccountF", "User found: " + user);
-            usernameTextView.setText("Username: " + user.getUsername());
-            passwordTextView.setText("Password: " + user.getPassword());
+            usernameEditView.setText( user.getUsername());
+            PasswordEditView.setText( user.getPassword());
+            EmailEditView.setText(user.getEmail());
+            TelephoneEditView.setText( user.getTelephone());
+            PaysEditView.setText( user.getPays());
+            updateUsernameButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String newUsername =usernameEditView.getText().toString() ;
+                    String Email =EmailEditView.getText().toString() ;
+                    String Telephone =TelephoneEditView.getText().toString() ;
+                    String Pays =PaysEditView.getText().toString() ;
+                    userDao.updateUsername(user.getId(),newUsername,Email,Telephone,Pays);
+
+
+                }
+            });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Delete Account");
+                    builder.setMessage("Are you sure you want to delete your account?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Delete the account (call a method to delete from the database)
+                            userDao.deleteUserById(user.getId());
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                                fm.popBackStack();
+                            }                            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(loginIntent);
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User canceled the account deletion
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                }
+            });
         } else {
-            Log.d("UserAccountF", "User not found for username: " + this.username);
+            Log.d("UserAccountF", "User not found for username: " + this.Email);
             Toast.makeText(getActivity().getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
         }
 
 
         return view;
     }
+
 }
