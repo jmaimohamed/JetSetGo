@@ -22,7 +22,16 @@ public class User {
     private String Telephone;
     @ColumnInfo
     private String Pays;
+    @ColumnInfo
+    private String Spes;
 
+    public String getSpes() {
+        return Spes;
+    }
+
+    public void setSpes(String spes) {
+        Spes = spes;
+    }
 
     public User(String Email, String password) {
         this.Email = Email;
@@ -36,9 +45,30 @@ public class User {
         this.Telephone = telephone;
         this.Pays = pays;
     }
+    @ColumnInfo(name = "fingerprintData")
+    private String fingerprintData;
+
+    public String getFingerprintData() {
+        return fingerprintData;
+    }
+
+    public void setFingerprintData(String fingerprintData) {
+        this.fingerprintData = fingerprintData;
+    }
 
     @Ignore
     public User() {
+    }
+    // Getter and setter for fingerprintDataId
+    @ColumnInfo(name = "fingerprint_data_id")
+    private long fingerprintDataId; // Store the reference to the fingerprint data
+
+    public long getFingerprintDataId() {
+        return fingerprintDataId;
+    }
+
+    public void setFingerprintDataId(long fingerprintDataId) {
+        this.fingerprintDataId = fingerprintDataId;
     }
 
 

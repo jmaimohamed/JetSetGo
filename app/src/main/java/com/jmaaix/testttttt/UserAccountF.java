@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +28,7 @@ import com.jmaaix.testttttt.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,9 +64,16 @@ public class UserAccountF extends Fragment {
     }
     private Button updateUsernameButton;
     private Button delete;
-
+    private Button magic;
+    private Button FingerPrint;
     private UserDatabase userDatabase;
     private UserDao userDao;
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private String fingerprintData;
+
+    private BiometricPrompt.PromptInfo promptInfo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_account, container, false);
@@ -72,6 +83,7 @@ public class UserAccountF extends Fragment {
         userDao = userDatabase.userDao();
         updateUsernameButton = view.findViewById(R.id.Update);
         delete = view.findViewById(R.id.Delete);
+    magic = view.findViewById(R.id.Spes);
 
         // Retrieve the username of the logged-in user (from the login process)
        // String loggedInUsername = getArguments().getString(ARG_USERNAME);
@@ -85,7 +97,6 @@ public class UserAccountF extends Fragment {
         TelephoneEditView  = view.findViewById(R.id.Telephone);
         PaysEditView  = view.findViewById(R.id.Pays);
         PasswordEditView= view.findViewById(R.id.Password);
-
         User user = userDao.getUserByEmail(this.Email);
         Log.d("UserAccountF", "User found: " + user);
         if (user != null) {
@@ -135,6 +146,29 @@ public class UserAccountF extends Fragment {
                     builder.create().show();
                 }
             });
+
+
+            magic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Retrieve the user's ID (assuming you have the user object)
+                    Long userId = user.getId();
+
+                    // Create a new instance of MagicFragment and pass the user ID as an argument
+                    MagicFragment magicFragment = MagicFragment.newInstance(userId);
+
+                    // Use a FragmentTransaction to navigate to the MagicFragment
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frameH, magicFragment);
+                    transaction.addToBackStack(null); // Add to back stack for navigation
+                    transaction.commit();
+
+
+                }
+            });
+
+
+
         } else {
             Log.d("UserAccountF", "User not found for username: " + this.Email);
             Toast.makeText(getActivity().getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
@@ -143,5 +177,6 @@ public class UserAccountF extends Fragment {
 
         return view;
     }
+
 
 }

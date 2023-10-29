@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/fieldtextt"
@@ -103,32 +103,54 @@
             android:textColorHint="#2799A5"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center|top"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Update"
+                android:layout_width="173dp"
+                android:layout_height="50dp"
+
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/buttonloginsignup"
+                android:text="Update"
+                android:textColor="#2799A5"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Delete"
+                android:layout_width="173dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/selfie"
+                android:text="Delete"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/Update"
-            android:layout_width="match_parent"
+            android:id="@+id/Spes"
+            android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
             android:background="@drawable/buttonloginsignup"
-            android:text="Update"
+            android:ems="10"
+            android:hint="Magic ✨✨"
+            android:textAlignment="center"
             android:textColor="#2799A5"
-            android:textSize="22sp"
+            android:textColorHint="#2799A5"
             android:textStyle="bold" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/Delete"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/selfie"
-            android:text="Delete"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
 
 
     </LinearLayout>
