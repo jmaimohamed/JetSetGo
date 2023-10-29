@@ -27,24 +27,32 @@
             android:textSize="50sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/EditUsername"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/Speech"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/fieldtextt"
-            android:ems="10"
-            android:hint="Enter your Email"
-            android:inputType="text"
-            android:textAlignment="center"
-            android:textColor="#2799A5"
-            android:textColorHint="#2799A5"
-            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:text="FingerPrint" />
 
-            />
+        <EditText
+                android:id="@+id/EditUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/fieldtextt"
+                android:ems="10"
+                android:hint="Enter your Email"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="#2799A5"
+                android:textColorHint="#2799A5"
+                android:textStyle="bold"
+
+                />
+
 
         <EditText
             android:id="@+id/EditPassword"

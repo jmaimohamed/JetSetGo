@@ -1,0 +1,78 @@
+package com.jmaaix.testttttt;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.jmaaix.testttttt.DAO.UserDao;
+import com.jmaaix.testttttt.database.UserDatabase;
+import com.jmaaix.testttttt.entities.User;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MagicFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class MagicFragment extends Fragment {
+
+    private Long ID;
+    EditText SpessEdit;
+    private Button MagicButtin;
+
+    public MagicFragment() {
+        // Required empty public constructor
+
+    }
+
+    public MagicFragment(Long id) {
+        // Required empty public constructor
+        this.ID = id;
+    }
+
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+
+    public static MagicFragment newInstance(Long userId) {
+        MagicFragment fragment = new MagicFragment();
+        fragment.ID= userId;
+        return fragment;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_magic, container, false);
+        userDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
+        userDao = userDatabase.userDao();
+        MagicButtin = view.findViewById(R.id.UpdateMagic);
+        SpessEdit = view.findViewById(R.id.Spess);
+        User user = userDao.getUserById(this.ID);
+        if (user != null) {
+            Log.d("UserAccountF", "User found: " + user);
+
+            SpessEdit.setText(user.getSpes());
+            MagicButtin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String Spess = SpessEdit.getText().toString();
+                    userDao.updateMagic(user.getId(), Spess);
+
+
+                }
+            });
+        }
+        return view;
+    }
+
+}
