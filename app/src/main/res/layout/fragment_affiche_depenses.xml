@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MoneyManagementF">
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_1"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="0dp">
+
+    </include>
+
+
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/IDbutton_addbudget"
+    android:layout_width="70dp"
+    android:layout_marginStart="10dp"
+    android:layout_height="70dp"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/button_ajout_budg"
+    android:text="edit"
+    android:textStyle="bold"/>
+
+
+
+
+    <LinearLayout
+        android:layout_width="149dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp"
+
+
+        >
+
+
+        <ImageView
+            android:id="@+id/id_image_food"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/tray_food" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/IdAccomodation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/hotel" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/IdShopping"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/shopping" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/IdTransport"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/transport" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/IdLoisir"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_accessibility_new_24" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="149dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="150dp"
+        >
+
+        <TextView
+            android:id="@+id/IdTotalFood"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/textcolor"
+            android:text="200 $"
+            android:textAlignment="center"
+            android:textColor="#081E21"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/IdTotalAccomodation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/textcolor"
+            android:text="80  $"
+            android:textAlignment="center"
+            android:textColor="#081E21"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/IdTotalShopping"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/textcolor"
+            android:text="200 $"
+            android:textAlignment="center"
+            android:textColor="#081E21"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/IdTotalTransport"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/textcolor"
+            android:text="200 $"
+            android:textAlignment="center"
+            android:textColor="#081E21"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/IdTotalDivertissement"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/textcolor"
+            android:text="200 $"
+            android:textAlignment="center"
+            android:textColor="#081E21"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/IDbutton_addDepense"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/add_button"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|center"/>
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+</FrameLayout>

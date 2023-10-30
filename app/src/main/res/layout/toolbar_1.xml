@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Toolbar">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/toolbarcolor"
+        android:theme="?attr/actionBarTheme"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <TextView
+        android:id="@+id/text_total"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:paddingTop="25dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/affiche_budget"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:paddingTop="25dp"
+        android:text="$"
+        android:layout_marginEnd="10dp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+</FrameLayout>

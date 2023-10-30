@@ -3,13 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightCoral"
     tools:context=".MoneyManagementF">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:background="@drawable/gradiant_color_background">
+
+        <TextView
+            android:id="@+id/Budget_msg"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Saisir votre budget"
+            android:textAlignment="center"
+            android:textSize="28dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#2799A5"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/IdBudget"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:textSize="25dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/textcolor"
+            android:ems="10"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="#081E21"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/IDButton_Suivant"
+            android:layout_width="match_parent"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="170dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/buttonsuivant"
+            android:text="Suivant"
+            android:textColor="#2799A5"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
 
 </FrameLayout>
