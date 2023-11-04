@@ -108,7 +108,9 @@ public class UserAccountF extends Fragment {
             });
 
         }
-        else {            All_Users.setVisibility(View.GONE);}
+        else {
+                 All_Users.setVisibility(View.GONE);
+            }
 
 
         Log.d("UserAccountF", "User found: " + user);
