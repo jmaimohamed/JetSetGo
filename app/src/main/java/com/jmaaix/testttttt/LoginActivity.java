@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private UserDatabase appDatabase;
+    private SessionManager sessionManager;
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 1;
     private SpeechRecognizer speechRecognizer;
     @Override
@@ -34,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         appDatabase = UserDatabase.getInstance(this);
 
         Button RegisterButton = findViewById(R.id.Register);
-        Button ForgotPasswordButton = findViewById(R.id.ForgotPassword);
         Button LoginButton = findViewById(R.id.LoginButton);
         Button FingerPrintButton = findViewById(R.id.FingerPrint);
         EditText editEmail = findViewById(R.id.EditUsername);
@@ -55,13 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     REQUEST_RECORD_AUDIO_PERMISSION
             );
         }
-        ForgotPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
-                startActivity(intent);
-            }
-        });
+
         Button startSpeechRecognitionButton = findViewById(R.id.Speech);
         startSpeechRecognitionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 String Email = editEmail.getText().toString();
                 String Password = editPassword.getText().toString();
 
-                User user = appDatabase.userDao().getUserByEmail(Email);
+                User user = appDatabase.userDao().Login(Email,Password);
 
                 if (user != null && user.getPassword().equals(Password))
                     {

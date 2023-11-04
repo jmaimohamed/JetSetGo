@@ -2,19 +2,32 @@ package com.jmaaix.testttttt;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jmaaix.testttttt.DAO.UserDao;
 import com.jmaaix.testttttt.database.UserDatabase;
 import com.jmaaix.testttttt.entities.User;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,10 +80,9 @@ public class MagicFragment extends Fragment {
 
                     String Spess = SpessEdit.getText().toString();
                     userDao.updateMagic(user.getId(), Spess);
-
-
                 }
             });
+
         }
         return view;
     }

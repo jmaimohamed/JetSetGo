@@ -19,11 +19,25 @@ public class User {
     @ColumnInfo
     private String Email;
     @ColumnInfo
+    private String Role;
+    @ColumnInfo
     private String Telephone;
     @ColumnInfo
     private String Pays;
     @ColumnInfo
     private String Spes;
+
+
+    @ColumnInfo(name = "profileImage")
+    private String profileImage;
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 
     public String getSpes() {
         return Spes;
@@ -44,6 +58,14 @@ public class User {
         this.Email = email;
         this.Telephone = telephone;
         this.Pays = pays;
+    }
+    public User(String username, String password, String email, String telephone, String pays,String Role) {
+        this.username = username;
+        this.password = password;
+        this.Email = email;
+        this.Telephone = telephone;
+        this.Pays = pays;
+        this.Role= Role;
     }
     @ColumnInfo(name = "fingerprintData")
     private String fingerprintData;
@@ -103,6 +125,14 @@ public class User {
         Email = email;
     }
 
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
+    }
+
     public String getTelephone() {
         return Telephone;
     }
@@ -128,7 +158,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", Telephone='" + Telephone + '\'' +
                 ", pays='" + Pays + '\'' +
-
+                ", pays='" + Role + '\'' +
                 '}';
     }
 }

@@ -24,20 +24,6 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         loggedInUsername = getIntent().getStringExtra("Email");
 
-        /*String loggedInUsername = getIntent().getStringExtra("username");
-      //  UserAccountF userAccountFragment = UserAccountF.newInstance(loggedInUsername);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frameH, new UserAccountF(loggedInUsername))
-                .commit();*/
-
-      //  String username = getIntent().getStringExtra("username");
-     //   TextView textViewUsername = findViewById(R.id.Username_recup);
-    //    textViewUsername.setText("Welcome, " + username);
-
-
-
-
         // Set up initial fragment
         replaceFragment(new StepCounterF());
 
