@@ -94,7 +94,6 @@ public class All_UserF extends Fragment {
                     }
                 });
                 builder.create().show();
-                userDao.deleteUserById(user.getId());
 
             }
         });

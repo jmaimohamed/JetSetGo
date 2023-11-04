@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jmaaix.testttttt.DAO.UserDao;
 import com.jmaaix.testttttt.database.UserDatabase;
@@ -80,6 +81,7 @@ public class MagicFragment extends Fragment {
 
                     String Spess = SpessEdit.getText().toString();
                     userDao.updateMagic(user.getId(), Spess);
+                    Toast.makeText(getActivity().getApplicationContext(), "Update Done !!", Toast.LENGTH_SHORT).show();
                 }
             });
 

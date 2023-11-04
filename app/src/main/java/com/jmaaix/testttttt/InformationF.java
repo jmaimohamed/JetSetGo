@@ -94,7 +94,8 @@ public class InformationF extends Fragment {
                     String Telephone =TelephoneEditView.getText().toString() ;
                     String Pays =PaysEditView.getText().toString() ;
                     userDao.updateUsername(user.getId(),newUsername,Email,Telephone,Pays);
-                    Snackbar.make(view, "Update successful", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Update Done !!", Toast.LENGTH_SHORT).show();
+
                 }
             });
     }
