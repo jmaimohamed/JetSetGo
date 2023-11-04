@@ -29,7 +29,8 @@ import com.jmaaix.testttttt.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UserAccountF#newInstance} factory method to
@@ -46,7 +47,6 @@ public class UserAccountF extends Fragment {
     EditText PaysEditView;
     EditText PasswordEditView ;
     EditText EmailEditView;
-    private List<User> userList = new ArrayList<User>();
     public UserAccountF() {
         // Required empty public constructor
 
@@ -62,17 +62,20 @@ public class UserAccountF extends Fragment {
         fragment.Email = Email;
         return fragment;
     }
-    private Button updateUsernameButton;
+    private Button Information;
     private Button delete;
     private Button magic;
+    private Button All_Users;
     private Button FingerPrint;
     private UserDatabase userDatabase;
     private UserDao userDao;
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private String fingerprintData;
+    private SessionManager sessionManager; // Initialize SessionManager
 
     private BiometricPrompt.PromptInfo promptInfo;
+    private List<User> userList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,43 +84,38 @@ public class UserAccountF extends Fragment {
         // Initialize Room database and UserDao
         userDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
         userDao = userDatabase.userDao();
-        updateUsernameButton = view.findViewById(R.id.Update);
+        Information = view.findViewById(R.id.Info);
         delete = view.findViewById(R.id.Delete);
     magic = view.findViewById(R.id.Spes);
-
-        // Retrieve the username of the logged-in user (from the login process)
-       // String loggedInUsername = getArguments().getString(ARG_USERNAME);
-     //   Log.d("UserAccountF", "loggedInUsername: " + loggedInUsername);
-
-        // Retrieve the user information using the username
-
-
-        usernameEditView = view.findViewById(R.id.Username);
-        EmailEditView  = view.findViewById(R.id.Email);
-        TelephoneEditView  = view.findViewById(R.id.Telephone);
-        PaysEditView  = view.findViewById(R.id.Pays);
-        PasswordEditView= view.findViewById(R.id.Password);
+        All_Users=view.findViewById(R.id.All_User);
         User user = userDao.getUserByEmail(this.Email);
-        Log.d("UserAccountF", "User found: " + user);
-        if (user != null) {
-            Log.d("UserAccountF", "User found: " + user);
-            usernameEditView.setText( user.getUsername());
-            PasswordEditView.setText( user.getPassword());
-            EmailEditView.setText(user.getEmail());
-            TelephoneEditView.setText( user.getTelephone());
-            PaysEditView.setText( user.getPays());
-            updateUsernameButton.setOnClickListener(new View.OnClickListener() {
+        String userRole = user.getRole();
+        boolean isAdmin = "Admin".equals(userRole);
+
+        // Observe user login status
+        boolean isLoggedIn = user != null;
+        if (isAdmin) {
+            All_Users.setVisibility(View.VISIBLE);
+            All_Users.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String newUsername =usernameEditView.getText().toString() ;
-                    String Email =EmailEditView.getText().toString() ;
-                    String Telephone =TelephoneEditView.getText().toString() ;
-                    String Pays =PaysEditView.getText().toString() ;
-                    userDao.updateUsername(user.getId(),newUsername,Email,Telephone,Pays);
-
-
+                    All_UserF allUsersFragment = All_UserF.newInstance();
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frameH, allUsersFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
             });
+
+        }
+        else {            All_Users.setVisibility(View.GONE);}
+
+
+        Log.d("UserAccountF", "User found: " + user);
+        if (user != null) {
+
+            Log.d("UserAccountF", "User found: " + user);
+
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -167,9 +165,24 @@ public class UserAccountF extends Fragment {
                 }
             });
 
-
+            Information.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String Emailuser = user.getEmail();
+                    InformationF infoFragment = InformationF.newInstance(Emailuser);
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frameH, infoFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
 
         } else {
+            delete.setVisibility(isLoggedIn ? View.VISIBLE : View.GONE);
+            magic.setVisibility(isLoggedIn ? View.VISIBLE : View.GONE);
+            Information.setVisibility(isLoggedIn ? View.VISIBLE : View.GONE);
+            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(loginIntent);
             Log.d("UserAccountF", "User not found for username: " + this.Email);
             Toast.makeText(getActivity().getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
         }

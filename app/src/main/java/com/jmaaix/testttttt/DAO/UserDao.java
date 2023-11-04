@@ -19,10 +19,12 @@ public interface UserDao {
 
     @Insert
     void addUser(User u);
-
+    @Query("SELECT username FROM users")
+    List<String> getAllUsernames();
     @Query("SELECT * FROM users WHERE  users.username= :username")
         User getUserByUsername(String username);
-
+    @Query("SELECT * FROM users WHERE Email = :Email AND password = :password")
+    User Login(String Email, String password);
     @Query("SELECT * FROM users WHERE  users.Email = :Email")
     User getUserByEmail(String Email);
     @Query("SELECT * FROM users WHERE  users.id = :ID")
@@ -33,6 +35,11 @@ public interface UserDao {
     @Query("select * from users")
     List<User> getAll();
 
+    @Query("SELECT profileImage FROM users WHERE id = :userId")
+    String getProfileImageById(long userId);
+
+    @Query("UPDATE users SET profileImage = :imagePath WHERE id = :userId")
+    void updateProfileImage(long userId, String imagePath);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(User user);
 

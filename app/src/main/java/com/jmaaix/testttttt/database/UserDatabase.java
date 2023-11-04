@@ -14,14 +14,14 @@ import com.jmaaix.testttttt.entities.User;
 import java.util.List;
 import java.util.Map;
 
-@Database(entities = {User.class , FingerprintData.class},version = 2,exportSchema = false)
+@Database(entities = {User.class , FingerprintData.class},version = 1,exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
     private static UserDatabase instance ;
     public abstract UserDao userDao();
     public abstract FingerprintDataDao fingerprintDataDao();
     public static UserDatabase getInstance(Context context){
         if(instance== null){
-            instance = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, "JetSetGoo")
+            instance = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, "JetSetGos")
                     .allowMainThreadQueries()
                     .build();
 
