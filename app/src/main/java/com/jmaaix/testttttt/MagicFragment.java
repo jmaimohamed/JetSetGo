@@ -1,5 +1,6 @@
 package com.jmaaix.testttttt;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,7 +82,9 @@ public class MagicFragment extends Fragment {
 
                     String Spess = SpessEdit.getText().toString();
                     userDao.updateMagic(user.getId(), Spess);
-                    Toast.makeText(getActivity().getApplicationContext(), "Update Done !!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(getActivity(), "Success !!", Toast.LENGTH_SHORT).show();
                 }
             });
 
