@@ -42,10 +42,12 @@ dependencies {
     implementation("androidx.room:room-runtime:2.2.0")
     implementation ("androidx.core:core-ktx:1.7.0")
     implementation ("com.squareup.picasso:picasso:2.8")
+    implementation(files("libs/activation.jar"))
+    implementation(files("libs/mail.jar"))
+    implementation(files("libs/additionnal.jar"))
     annotationProcessor("androidx.room:room-compiler:2.2.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.biometric:biometric:1.1.0")
-
 }
