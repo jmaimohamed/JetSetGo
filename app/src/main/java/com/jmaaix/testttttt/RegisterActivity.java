@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jmaaix.testttttt.DAO.UserDao;
@@ -40,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String Email = EmailEditText.getText().toString();
                 String Telephone = TelephoneEditText.getText().toString();
                 String Pays = PaysEditText.getText().toString();
+                String plainPassword = password;
+                int logRounds = 10;
                 if(Username.isEmpty()||password.isEmpty()||Email.isEmpty()||Telephone.isEmpty()||Pays.isEmpty())
                 {
                     Toast.makeText(RegisterActivity.this, "Check Your field !!! ", Toast.LENGTH_SHORT).show();
@@ -52,7 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Email already taken, please Choose Another One ", Toast.LENGTH_SHORT).show();
                         }
                     else{
-                        User newUser = new User(Username, password,Email,Telephone,Pays);
+                        String hashedPassword = BCrypt.withDefaults().hashToString(logRounds, plainPassword.toCharArray());
+                        Log.e("EmailSender", "Error sending email: " + hashedPassword);
+                        User newUser = new User(Username, hashedPassword ,Email,Telephone,Pays);
                         userDao.addUser(newUser);
                         boolean registrationSuccess = true; // Replace with your registration logic
                         if (registrationSuccess) {

@@ -51,11 +51,9 @@ public class All_UserF extends Fragment {
         userRecyclerView = view.findViewById(R.id.userRecyclerView);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(getContext())); // Set your preferred layout manager
 
-        // Load the list of users from the database using your Room DAO
         UserDao userDao = UserDatabase.getInstance(requireContext()).userDao();
         List<User> userList = userDao.getAll();
 
-        // Create the adapter and set it to the RecyclerView
         adapter = new UserListAdapter(userList, new UserListAdapter.OnUserClickListener() {
             @Override
             public void onUserClick(User user) {
@@ -68,6 +66,7 @@ public class All_UserF extends Fragment {
                 transaction.commit();
 
             }
+
             @Override
             public void onDeleteClick(User user) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -76,7 +75,7 @@ public class All_UserF extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Delete the account (call a method to delete from the database)
+
                         userDao.deleteUserById(user.getId());
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {

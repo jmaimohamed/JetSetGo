@@ -1,8 +1,8 @@
 package com.jmaaix.testttttt;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.FrameLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,11 +15,12 @@ public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private String loggedInUsername;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         frameLayout = findViewById(R.id.frameH);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         loggedInUsername = getIntent().getStringExtra("Email");
@@ -53,8 +54,10 @@ public class HomeActivity extends AppCompatActivity {
             }
 
 
+
             return true;
         });
+
     }
 
 

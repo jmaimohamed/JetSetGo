@@ -3,7 +3,7 @@ package com.jmaaix.testttttt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,9 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.jmaaix.testttttt.database.UserDatabase;
 import com.jmaaix.testttttt.entities.User;
-import android.content.pm.PackageManager;
+
 import android.Manifest;
 
 
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onBeginningOfSpeech() {
+                Toast.makeText(LoginActivity.this, "start recording ..", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -87,12 +89,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onEndOfSpeech() {
-
+                Toast.makeText(LoginActivity.this, "Check ..", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(int error) {
-
+                Toast.makeText(LoginActivity.this, "Error ...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -128,19 +130,25 @@ public class LoginActivity extends AppCompatActivity {
 
                 String Email = editEmail.getText().toString();
                 String Password = editPassword.getText().toString();
+                User user = appDatabase.userDao().getUserByEmail(Email);
 
-                User user = appDatabase.userDao().Login(Email,Password);
-
-                if (user != null && user.getPassword().equals(Password))
+                if (user != null )
                     {
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra("Email", Email);
-                        startActivity(intent);
-                        Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                        String hashedPassword = user.getPassword();
+                        if (BCrypt.verifyer().verify(Password.toCharArray(), hashedPassword).verified) {
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.putExtra("Email", Email);
+                            startActivity(intent);
+                            Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, "Wrong Password !!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 else
                     {
-                        Toast.makeText(LoginActivity.this, "Retry !!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Retry ...", Toast.LENGTH_SHORT).show();
                     }
                 }
         });
