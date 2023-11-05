@@ -3,6 +3,7 @@ package com.jmaaix.testttttt;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class InformationF extends Fragment {
 
     private Button updateUsernameButton;
     private Button magic;
-    private Button FingerPrint;
+    private Button Change;
     private UserDatabase userDatabase;
     private UserDao userDao;
     private Executor executor;
@@ -63,7 +64,7 @@ public class InformationF extends Fragment {
         userDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
         userDao = userDatabase.userDao();
         updateUsernameButton = view.findViewById(R.id.Update);
-
+        Change = view.findViewById(R.id.ChangePassword);
 
         // Retrieve the username of the logged-in user (from the login process)
         // String loggedInUsername = getArguments().getString(ARG_USERNAME);
@@ -76,13 +77,12 @@ public class InformationF extends Fragment {
         EmailEditView  = view.findViewById(R.id.Email);
         TelephoneEditView  = view.findViewById(R.id.Telephone);
         PaysEditView  = view.findViewById(R.id.Pays);
-        PasswordEditView= view.findViewById(R.id.Password);
+
         User user = userDao.getUserByEmail(this.Email);
         Log.d("UserAccountF", "User found: " + user);
         if (user != null) {
             Log.d("UserAccountF", "User found: " + user);
             usernameEditView.setText( user.getUsername());
-            PasswordEditView.setText( user.getPassword());
             EmailEditView.setText(user.getEmail());
             TelephoneEditView.setText( user.getTelephone());
             PaysEditView.setText( user.getPays());
@@ -98,6 +98,19 @@ public class InformationF extends Fragment {
 
                 }
             });
+            Change.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Long userId = user.getId();
+                        ChangePasswordF Pass = ChangePasswordF.newInstance(userId);
+                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frameH, Pass);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                }
+
+            });
+
     }
         else {
             Log.d("UserAccountF", "User not found for username: " + this.Email);

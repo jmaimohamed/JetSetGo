@@ -42,24 +42,7 @@
         android:textColorHint="#2799A5"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/fieldtextt"
-        android:ems="10"
-        android:hint="Enter your Password"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        android:textColor="#2799A5"
-        android:textColorHint="#2799A5"
-        android:textStyle="bold"
 
-        />
 
     <EditText
         android:id="@+id/Telephone"
@@ -107,6 +90,20 @@
             android:background="@drawable/buttonloginsignup"
             android:gravity="center"
             android:text="Update"
+            android:textColor="#2799A5"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/buttonloginsignup"
+            android:gravity="center"
+            android:text="Change Password"
             android:textColor="#2799A5"
             android:textSize="22sp"
             android:textStyle="bold" />

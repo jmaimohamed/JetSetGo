@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.jmaaix.testttttt.entities.FingerprintData;
 import com.jmaaix.testttttt.entities.User;
 
 import java.util.List;
@@ -47,6 +46,9 @@ public interface UserDao {
     void updateUser(User user);
     @Query("UPDATE users SET username = :newUsername , Email=:Email , Telephone = :Telephonee , Pays = :Payss  WHERE id = :userId")
     void updateUsername(long userId, String newUsername,String Email,String Telephonee,String Payss);
+
+    @Query("UPDATE users SET password = :Password  WHERE id = :userId")
+    void UpdatePassword(long userId, String Password);
     @Delete
     void deleteUser(User user);
     @Query("DELETE FROM users WHERE id = :userId")
@@ -58,8 +60,6 @@ public interface UserDao {
     @Query("SELECT * FROM users WHERE id = :userId")
     User getUserById(long userId);
 
-    @Query("SELECT * FROM fingerprint WHERE userId  = :userId") // Correct the table name
-    FingerprintData getFingerprintDataByUserId(long userId);
 
     @Query("UPDATE users SET Spes=:spess  WHERE id = :userId")
 
