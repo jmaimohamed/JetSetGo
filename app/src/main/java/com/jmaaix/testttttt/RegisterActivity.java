@@ -1,7 +1,10 @@
 package com.jmaaix.testttttt;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,9 +54,20 @@ public class RegisterActivity extends AppCompatActivity {
                     else{
                         User newUser = new User(Username, password,Email,Telephone,Pays);
                         userDao.addUser(newUser);
+                        boolean registrationSuccess = true; // Replace with your registration logic
+                        if (registrationSuccess) {
+
+                            new SendEmailTask().execute(Email,Username);
+                            Toast.makeText(RegisterActivity.this, "Registration successful. Welcome email sent.", Toast.LENGTH_SHORT).show();
+                            }
+                        else
+                        {
+                                Toast.makeText(RegisterActivity.this, "Registration successful, but failed to send the welcome email.", Toast.LENGTH_SHORT).show();
+                        }
+
+
 
                         // Show a message indicating successful registration
-                        Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
@@ -61,4 +75,20 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private class SendEmailTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                if (params.length > 0) {
+                    String recipientEmail = params[0];
+                    String username = params[1];
+                    EmailSender.sendEmail(recipientEmail,username); // Pass the recipient's email address to the email sending method
+                }
+            } catch (Exception e) {
+                Log.e("EmailSender", "Error sending email: " + e.getMessage(), e);
+            }
+            return null;
+        }
+    }
+
 }
