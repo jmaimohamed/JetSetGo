@@ -6,13 +6,16 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.jmaaix.testttttt.DAO.NoteDao;
 import com.jmaaix.testttttt.DAO.UserDao;
+import com.jmaaix.testttttt.entities.Note;
 import com.jmaaix.testttttt.entities.User;
 
-@Database(entities = {User.class},version = 2,exportSchema = false)
+@Database(entities = {User.class, Note.class},version = 3,exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
     private static UserDatabase instance ;
     public abstract UserDao userDao();
+    public abstract NoteDao noteDao();
 
     public static UserDatabase getInstance(Context context){
         if(instance== null){
