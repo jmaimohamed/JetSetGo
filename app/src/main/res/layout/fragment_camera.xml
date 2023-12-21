@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CameraFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+   <androidx.camera.view.PreviewView
+       android:id="@+id/previewView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       >
+
+       <ImageButton
+           android:id="@+id/capture"
+           android:layout_width="60sp"
+           android:layout_height="60sp"
+           android:layout_gravity="bottom|center"
+           android:layout_marginBottom="40sp"
+           android:background="?attr/selectableItemBackgroundBorderless"
+           android:scaleType="centerCrop"
+           android:src="@drawable/camera_24"
+           app:tint="#fff" />
+
+       <ImageButton
+           android:id="@+id/flash"
+           android:layout_width="60sp"
+           android:layout_height="60sp"
+           android:layout_gravity="end"
+           android:layout_marginTop="50dp"
+           android:background="?attr/selectableItemBackgroundBorderless"
+           android:src="@drawable/baseline_lightbulb_circle_24"
+           app:tint="#fff"/>
+
+
+   </androidx.camera.view.PreviewView>
+
+</FrameLayout>
