@@ -2,6 +2,7 @@ package com.jmaaix.testttttt;
 import java.util.Collections;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -63,18 +64,15 @@ public class MyNoteF extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_my_note, container, false);
         UserDatabase appDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
-        notesContainer = rootView.findViewById(R.id.notesContainer);
-        Button saveButton = rootView.findViewById(R.id.saveButton);
         final NoteDao noteDao = appDatabase.noteDao();
-        noteList = new ArrayList<>();
         userDao = appDatabase.userDao();
         User user = userDao.getUserByEmail(this.Email);
+        notesContainer = rootView.findViewById(R.id.notesContainer);
+        Button saveButton = rootView.findViewById(R.id.saveButton);
+
 
         if (user!=null) {
             long userId = noteDao.getUserIDByEmail(this.Email);
-            Log.d("UserAccountF", "User found: " + user);
-            Log.d("UserAccountF", "Email: " + userId);
-
 
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,11 +87,11 @@ public class MyNoteF extends Fragment implements SensorEventListener {
                         Note notenew = new Note(title, content, userId);
                         // Add the new note to the database
                         noteDao.addNote(notenew);
+                        createNoteView();
                     }
                 }
             });
-
-            noteDao.getNote(userId);
+            createNoteView();
         }
         return rootView;
     }
@@ -105,18 +103,8 @@ public class MyNoteF extends Fragment implements SensorEventListener {
         mLight = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
-    private void displayNotes() {
-        for (Note note : noteList) {
-            createNoteView(note);
-        }
-    }
 
 
-    //enregistrer une nouvelle note dans une liste de notes
-    // en utilisant les données entrées par l'utilisateur dans des champs de texte
-    private void saveNote() {
-
-    }
     private void clearInputFields() {
         EditText titleEditText = rootView.findViewById(R.id.titleEditText);
         EditText contentEditText = rootView.findViewById(R.id.contentEditText);
@@ -126,45 +114,81 @@ public class MyNoteF extends Fragment implements SensorEventListener {
     }
 
     //creation et affichage d'une note View dans l'interface utilisateur
-    private void createNoteView(final Note note) {
-        View noteView = getLayoutInflater().inflate(R.layout.note_item, notesContainer, false);
-        TextView titleTextView = noteView.findViewById(R.id.titleTextView);
-        TextView contentTextView = noteView.findViewById(R.id.contentTextView);
+    private void createNoteView() {
+        // Clear existing notes in the container
+        notesContainer.removeAllViews();
 
+        UserDatabase appDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
+        final NoteDao noteDao = appDatabase.noteDao();
+        userDao = appDatabase.userDao();
+        User user = userDao.getUserByEmail(this.Email);
 
-        titleTextView.setText(note.getTitle());
-        contentTextView.setText(note.getContent());
+        long userId = noteDao.getUserIDByEmail(this.Email);
+        List<Note> userNotes = noteDao.getNotesByUserId(userId);
 
-        noteView.setOnLongClickListener(v -> { showDeleteDialog(note);
-            return true;
-        });
-        notesContainer.addView(noteView);
+        for (Note note : userNotes) {
+            View noteView = getLayoutInflater().inflate(R.layout.note_item, notesContainer, false);
+            TextView titleTextView = noteView.findViewById(R.id.titleTextView);
+            TextView contentTextView = noteView.findViewById(R.id.contentTextView);
+
+            String title = note.getTitle();
+            String content = note.getContent();
+
+            titleTextView.setText(title);
+            contentTextView.setText(content);
+            noteView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Show a confirmation dialog before deleting the note
+                    showDeleteDialog(note);
+                }
+            });
+            notesContainer.addView(noteView);
+        }
+    }
+
+    private void deleteNoteAndRefresh(Note note) {
+        UserDatabase appDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
+        NoteDao noteDao = appDatabase.noteDao();
+        noteDao.deleteNote(note);
+
+        // Remove the corresponding view from the container
+        for (int i = 0; i < notesContainer.getChildCount(); i++) {
+            View noteView = notesContainer.getChildAt(i);
+            // Assuming you have set a tag to each note view with the corresponding note ID
+            if (noteView.getTag() != null && noteView.getTag() instanceof Long) {
+                long noteId = (Long) noteView.getTag();
+                if (noteId == note.getId()) {
+                    notesContainer.removeView(noteView);
+                    break;
+                }
+            }
+        }
     }
 
     //gérer la suppression d'une note
     private void showDeleteDialog(final Note note) {
-        if (getActivity() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Delete this note.");
-            builder.setMessage("Are you sure you want to delete this note?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Delete the note from the database
+                        deleteNoteAndRefresh(note);
+                        createNoteView();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User canceled the deletion
+                    }
+                })
+                .create()
+                .show();
+    }
 
-            builder.setPositiveButton("Delete", (dialog, which) -> deleteNoteAndRefresh(note));
 
-            builder.setNegativeButton("Cancel", null);
-            builder.show();
-        }
-    }
-    private void deleteNoteAndRefresh (Note note){
-        UserDatabase userDatabase= UserDatabase.getInstance(getActivity().getApplicationContext());
-        NoteDao noteDao = userDatabase.noteDao();
-        noteList.remove(note);
-        noteDao.deleteNote(note);
-        refreshNoteView();
-    }
-    private void refreshNoteView () {
-        notesContainer.removeAllViews();
-        displayNotes();
-    }
 
 
     @Override

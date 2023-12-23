@@ -16,16 +16,20 @@ public interface NoteDao {
 
     @Insert
     void addNote(Note note);
-    @Query("SELECT title, content FROM note WHERE userId = :userId")
+    @Query("SELECT * FROM note WHERE userId = :userId")
     double getNote(long userId);
     @Query("SELECT id FROM users WHERE users.Email = :Email")
     long getUserIDByEmail (String Email);
     @Query("SELECT * FROM note WHERE title = :title")
     Note getNoteByTitle(String title);
-
+    @Query("SELECT * FROM note WHERE userId = :userId")
+    List<Note> getNotesByUserId(long userId);
     @Query("SELECT * FROM note WHERE id = :noteId")
     Note getNoteById(long noteId);
-
+    @Query("SELECT title FROM note WHERE userId = :userId")
+    String getTitle(long userId);
+    @Query("SELECT content FROM note WHERE userId = :userId")
+    String getContent(long userId);
     @Query("SELECT * FROM note")
     List<Note> getAllNotes();
 
