@@ -69,7 +69,7 @@ public class MyNoteF extends Fragment implements SensorEventListener {
         User user = userDao.getUserByEmail(this.Email);
         notesContainer = rootView.findViewById(R.id.notesContainer);
         Button saveButton = rootView.findViewById(R.id.saveButton);
-
+        Button updateButton = rootView.findViewById(R.id.updateButton);
 
         if (user!=null) {
             long userId = noteDao.getUserIDByEmail(this.Email);
@@ -90,10 +90,40 @@ public class MyNoteF extends Fragment implements SensorEventListener {
                         createNoteView();
                     }
                 }
+
+            });
+            // Add this block for the update button
+            updateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateNote();
+                }
             });
             createNoteView();
         }
         return rootView;
+    }
+
+    private void updateNote() {
+        EditText titleEditText = rootView.findViewById(R.id.titleEditText);
+        EditText contentEditText = rootView.findViewById(R.id.contentEditText);
+
+        String newTitle = titleEditText.getText().toString();
+        String newContent = contentEditText.getText().toString();
+
+        if (selectedNote != null) {
+            selectedNote.setTitle(newTitle);
+            selectedNote.setContent(newContent);
+
+            // Update the note in the database
+            UserDatabase appDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
+            NoteDao noteDao = appDatabase.noteDao();
+            noteDao.updateNote(selectedNote);
+
+            // Clear input fields and recreate note views
+            clearInputFields();
+            createNoteView();
+        }
     }
         @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -112,11 +142,15 @@ public class MyNoteF extends Fragment implements SensorEventListener {
         titleEditText.getText().clear();
         contentEditText.getText().clear();
     }
-
+    private Note selectedNote; // Keep track of the selected note for updating
     //creation et affichage d'une note View dans l'interface utilisateur
     private void createNoteView() {
         // Clear existing notes in the container
-        notesContainer.removeAllViews();
+        for (int i = notesContainer.getChildCount() - 1; i >= 0; i--) {
+            View child = notesContainer.getChildAt(i);
+            notesContainer.removeAllViews();
+        }
+
 
         UserDatabase appDatabase = UserDatabase.getInstance(getActivity().getApplicationContext());
         final NoteDao noteDao = appDatabase.noteDao();
@@ -136,14 +170,33 @@ public class MyNoteF extends Fragment implements SensorEventListener {
 
             titleTextView.setText(title);
             contentTextView.setText(content);
+            noteView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    // Show a confirmation dialog before deleting the note
+                    showDeleteDialog(note);
+                    return true;
+                }
+            });
+
+            // Update the selectedNote when a note is clicked
             noteView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Show a confirmation dialog before deleting the note
-                    showDeleteDialog(note);
+                    // Display the selected note's information in the input fields
+                    EditText titleEditText = rootView.findViewById(R.id.titleEditText);
+                    EditText contentEditText = rootView.findViewById(R.id.contentEditText);
+
+                    titleEditText.setText(note.getTitle());
+                    contentEditText.setText(note.getContent());
+
+                    // Set the selected note for updating
+                    selectedNote = note;
                 }
             });
+
             notesContainer.addView(noteView);
+
         }
     }
 
