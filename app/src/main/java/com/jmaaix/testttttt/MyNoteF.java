@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.jmaaix.testttttt.DAO.NoteDao;
+import com.jmaaix.testttttt.DAO.UserDao;
 import com.jmaaix.testttttt.database.UserDatabase;
 import com.jmaaix.testttttt.entities.Note;
+import com.jmaaix.testttttt.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyNoteF extends Fragment implements SensorEventListener {
 
-
+    private UserDao userDao;
     private LinearLayout notesContainer;
     private List<Note> noteList;
     private NoteDao noteDao;
@@ -39,6 +42,23 @@ public class MyNoteF extends Fragment implements SensorEventListener {
     // Declare the sensor manager and the light sensor
     private SensorManager sensorManager;
     private Sensor mLight;
+
+    private String Email;
+    public MyNoteF() {
+        // Required empty public constructor
+        }
+         public MyNoteF(String Email) {
+            // Required empty public constructor
+            this.Email = Email;
+        }
+
+        public static MyNoteF newInstance(String Email) {
+        MyNoteF fragment = new MyNoteF();
+        fragment.Email = Email;
+        return fragment;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_my_note, container, false);
@@ -47,37 +67,37 @@ public class MyNoteF extends Fragment implements SensorEventListener {
         Button saveButton = rootView.findViewById(R.id.saveButton);
         final NoteDao noteDao = appDatabase.noteDao();
         noteList = new ArrayList<>();
+        userDao = appDatabase.userDao();
+        User user = userDao.getUserByEmail(this.Email);
 
-        // Get the user_id from the intent or shared preferences
-        user_id = getActivity().getIntent().getLongExtra("user_id", 0);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (user!=null) {
+            long userId = noteDao.getUserIDByEmail(this.Email);
+            Log.d("UserAccountF", "User found: " + user);
+            Log.d("UserAccountF", "Email: " + userId);
 
-                EditText titleEditText = rootView.findViewById(R.id.titleEditText);
-                EditText contentEditText = rootView.findViewById(R.id.contentEditText);
-                String title = titleEditText.getText().toString();
-                String content = contentEditText.getText().toString();
 
-                if (!title.isEmpty() && !content.isEmpty()) {
-                    Note notenew= new Note(title,content,user_id);
-                    // Add the new note to the list
-                    noteList.add(notenew);
-                    // Add the new note to the database
-                    noteDao.addNote(notenew);
-                    // Refresh the note view after saving the note
-                    refreshNoteView();
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    EditText titleEditText = rootView.findViewById(R.id.titleEditText);
+                    EditText contentEditText = rootView.findViewById(R.id.contentEditText);
+                    String title = titleEditText.getText().toString();
+                    String content = contentEditText.getText().toString();
+
+                    if (!title.isEmpty() && !content.isEmpty()) {
+                        Note notenew = new Note(title, content, userId);
+                        // Add the new note to the database
+                        noteDao.addNote(notenew);
+                    }
                 }
-            }
-        });
-        // Initialize the note list with the existing notes in the database
-        noteList = noteDao.getAllNotes();
-        displayNotes();
+            });
 
+            noteDao.getNote(userId);
+        }
         return rootView;
     }
-
-    @Override
+        @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         // Initialize the sensor manager and the light sensor

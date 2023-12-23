@@ -3,9 +3,17 @@ package com.jmaaix.testttttt.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Note")
+@Entity(tableName = "Note",
+        foreignKeys = @ForeignKey(
+                entity = User.class,
+                parentColumns = "id",
+                childColumns = "userId",
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class Note {
 
     @PrimaryKey(autoGenerate = true)
@@ -18,15 +26,15 @@ public class Note {
     private String content;
 
     @ColumnInfo
-    public long user_id; // This is the foreign key that links to the User table
+    public long userId; // This is the foreign key that links to the User table
 
     // Add getters and setters for the user_id field
     public long getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
 
@@ -55,7 +63,7 @@ public class Note {
     public Note(String title, String content, long user_id){
         this.title=title;
         this.content =content;
-        this.user_id = user_id;
+        this.userId = user_id;
 
     }
 

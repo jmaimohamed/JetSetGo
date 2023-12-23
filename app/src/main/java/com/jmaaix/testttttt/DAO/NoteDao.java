@@ -16,7 +16,10 @@ public interface NoteDao {
 
     @Insert
     void addNote(Note note);
-
+    @Query("SELECT title, content FROM note WHERE userId = :userId")
+    double getNote(long userId);
+    @Query("SELECT id FROM users WHERE users.Email = :Email")
+    long getUserIDByEmail (String Email);
     @Query("SELECT * FROM note WHERE title = :title")
     Note getNoteByTitle(String title);
 
@@ -34,6 +37,8 @@ public interface NoteDao {
 
     @Query("DELETE FROM note WHERE id = :noteId")
     void deleteNoteById(long noteId);
+
+
 }
 
 
