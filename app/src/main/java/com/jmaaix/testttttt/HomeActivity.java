@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             }
 
          else if (itemId == R.id.myNote) {
-            replaceFragment(new MyNoteF());
+             replaceFragment(MyNoteF.newInstance(loggedInUsername));
         }
 
 
