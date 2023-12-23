@@ -37,6 +37,11 @@
         android:layout_height="wrap_content"
         android:text="Save Notes"
         android:layout_marginTop="16dp"/>
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update" />
     <TextView
         android:id="@+id/notesTextView"
         android:layout_width="match_parent"
@@ -57,7 +62,6 @@
             android:orientation="vertical"/>
     </ScrollView>
 
-
     <TextView
         android:id="@+id/lightTextView"
         android:layout_width="wrap_content"
@@ -66,5 +70,6 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:textColor="@color/black"/>
+
 
 </LinearLayout>
