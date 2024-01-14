@@ -3,7 +3,13 @@ package com.jmaaix.testttttt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
         frameLayout = findViewById(R.id.frameH);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         loggedInUsername = getIntent().getStringExtra("Email");
-
+        
         // Set up initial fragment
         replaceFragment(new StepCounterF());
 
@@ -50,8 +56,11 @@ public class HomeActivity extends AppCompatActivity {
 
 
             else if (itemId == R.id.User) {
+
+
                 replaceFragment(UserAccountF.newInstance(loggedInUsername));
             }
+            
 
 
 
@@ -67,4 +76,6 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameH, fragment);
         fragmentTransaction.commit();
     }
+
+
 }

@@ -31,17 +31,26 @@
         android:inputType="textMultiLine"
         android:minLines="5"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10px"
         android:text="Save Notes"
-        android:layout_marginTop="16dp"/>
-    <Button
+        android:background="@drawable/buttonloginsignup"
+        android:layout_marginTop="16dp"
+        android:textColor="#2799A5"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/updateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update" />
+        android:background="@drawable/buttonloginsignup"
+        android:text="Update"
+        android:textColor="#2799A5"
+        android:textSize="22sp"
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/notesTextView"
         android:layout_width="match_parent"

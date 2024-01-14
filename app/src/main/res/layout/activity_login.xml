@@ -16,17 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/log_in_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="50dp"
-            android:text="Log In"
-            android:textColor="#2799A5"
-            android:textSize="50sp"
-            android:textStyle="bold" />
-
+        <ImageView
+            android:id="@+id/iconImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="155dp"
+            android:contentDescription="App Icon"
+            android:src="@drawable/jetsetgo" />
 
         <EditText
                 android:id="@+id/EditUsername"
@@ -81,34 +76,8 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/Or"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="0sp"
-            android:layout_marginEnd="32dp"
-            android:layout_gravity="center"
-            android:autoSizeTextType="uniform"
-            android:text="--------OR--------"
-            android:textAlignment="center"
-            android:textColor="#009688"
-            android:textSize="35sp"
-            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/FingerPrint"
-                android:layout_width="206dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:textColor="#081E21"
-                android:text="FingerPrint" />
 
             <Button
                 android:id="@+id/Speech"
@@ -116,9 +85,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
-                android:textColor="#081E21"
-                android:text="VoiceLogin" />
-        </LinearLayout>
+                android:text="VoiceLogin"
+                android:textColor="#2196F3"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold" />
 
 
 
@@ -126,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp">
 
             <TextView
