@@ -1,9 +1,13 @@
 package com.jmaaix.testttttt.entities;
 
+import android.widget.Button;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.jmaaix.testttttt.R;
 
 @Entity(tableName = "users")
 public class User {
@@ -20,6 +24,7 @@ public class User {
     private String Email;
     @ColumnInfo
     private String Role;
+
     @ColumnInfo
     private String Telephone;
     @ColumnInfo

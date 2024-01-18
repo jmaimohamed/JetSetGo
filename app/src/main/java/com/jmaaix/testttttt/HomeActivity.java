@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
             } else if (itemId == R.id.myMoneyManagement) {
-                replaceFragment(new MoneyManagementF());
+                replaceFragment(new AfficheDepensesFragment());
             }
 
          else if (itemId == R.id.myNote) {

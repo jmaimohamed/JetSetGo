@@ -1,64 +1,100 @@
 package com.jmaaix.testttttt;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MoneyManagementF#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.jmaaix.testttttt.DAO.BudgetDao;
+import com.jmaaix.testttttt.DAO.UserDao;
+import com.jmaaix.testttttt.database.UserDatabase;
+import com.jmaaix.testttttt.entities.Budget;
+import com.jmaaix.testttttt.entities.User;
+
 public class MoneyManagementF extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String Email;
 
     public MoneyManagementF() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MoneyManagementF.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MoneyManagementF newInstance(String param1, String param2) {
+    public static MoneyManagementF newInstance(String email) {
         MoneyManagementF fragment = new MoneyManagementF();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        fragment.setEmail(email);
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    private void setEmail(String email) {
+        this.Email = email;
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_money_management, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_money_management, container, false);
+
+        // Retrieve the current user's email from the intent
+        String loggedInUsername = requireActivity().getIntent().getStringExtra("Email");
+
+        if (loggedInUsername != null && !loggedInUsername.isEmpty()) {
+            Email = loggedInUsername;
+            Button suivant = view.findViewById(R.id.IDButton_Suivant);
+            EditText editText = view.findViewById(R.id.IdBudget);
+            UserDatabase userDatabase = UserDatabase.getInstance(requireContext());
+            BudgetDao budgetDao = userDatabase.budgetDao();
+            suivant.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String budgetText = editText.getText().toString();
+                    if (!budgetText.isEmpty()) {
+                        try {
+                            double budgetValue = Double.parseDouble(budgetText);
+                            // Get the user ID using the retrieved email
+                            long userId = budgetDao.getUserIDByEmail(Email);
+                            double totalBudget = budgetDao.getTotalBudget(userId);
+
+                            if (totalBudget == 0.0) {
+                                // Budget does not exist, insert a new budget
+                                Budget newBudget = new Budget(userId, budgetValue);
+                                budgetDao.insertBudget(newBudget);
+                            } else {
+                                // Budget exists, update the existing budget
+                                budgetDao.updateTotalBudget(userId, budgetValue);
+                            }
+
+                            // After inserting or updating the budget, navigate to AfficheDepensesFragment
+                            AfficheDepensesFragment afficheDepensesFragment = new AfficheDepensesFragment();
+                            replaceFragment(afficheDepensesFragment);
+
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(requireContext(), "Please enter a valid budget", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Please enter a budget", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            // Handle the case where the user is not authenticated
+            Toast.makeText(requireContext(), "User not authenticated", Toast.LENGTH_SHORT).show();
+        }
+
+        return view;
+    }
+
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameH, fragment);
+        fragmentTransaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+        fragmentTransaction.commit();
     }
 }
