@@ -58,7 +58,7 @@
             android:id="@+id/id_image_food"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:src="@drawable/tray_food" />
+            android:src="@drawable/image_selector" />
 
         <Space
             android:layout_width="match_parent"
@@ -178,14 +178,29 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/textcolor"
-
             android:textAlignment="center"
             android:textColor="#081E21"
             android:textSize="30dp"
             android:textStyle="bold" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/IDResetButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/buttonsuivant"
+            android:text="Reset ALL"
+            android:textColor="#2799A5"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
+
+
+
+
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/IDbutton_addDepense"

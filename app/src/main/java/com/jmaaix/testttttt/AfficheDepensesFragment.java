@@ -43,23 +43,24 @@ public class AfficheDepensesFragment extends Fragment {
 
         Button addDepenseButton = rootView.findViewById(R.id.IDbutton_addDepense);
         Button editBudget = rootView.findViewById(R.id.IDbutton_addbudget);
+        Button ResetButton=rootView.findViewById(R.id.IDResetButton);
 
         UserDatabase userDatabase = UserDatabase.getInstance(requireContext());
         BudgetDao budgetDao = userDatabase.budgetDao();
         String loggedInUsername = requireActivity().getIntent().getStringExtra("Email");
 
+        Email = loggedInUsername;
+        long userId = budgetDao.getUserIDByEmail(Email);
+
         // Handle the button click to navigate to another fragment (Fragment2, for example)
         if (loggedInUsername != null && !loggedInUsername.isEmpty()) {
-            Email = loggedInUsername;
-            long userId = budgetDao.getUserIDByEmail(Email);
-            double totalBudget = budgetDao.getTotalBudget(userId);
 
+            double totalBudget = budgetDao.getTotalBudget(userId);
             double Bfood= budgetDao.getBFood(userId);
             double Baccomodation = budgetDao.getBAccomodation(userId);
             double Btransport = budgetDao.getBTransport(userId);
             double Bshopping = budgetDao.getBShopping(userId);
             double BLoisir= budgetDao.getBLosir(userId);
-
             double BudgetRestant=totalBudget-(Bfood+ Baccomodation+Btransport+Bshopping+BLoisir);
 
             totalBudgetTextView.setText(String.valueOf(BudgetRestant));
@@ -87,7 +88,16 @@ public class AfficheDepensesFragment extends Fragment {
             }
         });
 
-
+        ResetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long userId = budgetDao.getUserIDByEmail(Email);
+                // Replace the current fragment with Fragment2
+                budgetDao.ResetALL(userId);
+                Fragment afficheDepensesFragment = new AfficheDepensesFragment(); // Replace with the actual Fragment2 class
+                replaceFragment(afficheDepensesFragment);
+            }
+        });
         return rootView;
     }
 

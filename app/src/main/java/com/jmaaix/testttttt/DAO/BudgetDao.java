@@ -18,6 +18,9 @@ import java.util.List;
 public interface BudgetDao {
 
 
+
+    @Query("UPDATE budget SET BLoisir = 0 ,BTransport=0,BShopping=0,BAccomodation=0,BFood=0  WHERE userId = :userId")
+    void ResetALL(long userId);
     @Insert
     void insertBudget(Budget budget);
 
@@ -61,8 +64,6 @@ public interface BudgetDao {
 
     @Query("UPDATE budget SET BLoisir = BLoisir + :newBLoisir  WHERE userId = :userId")
     void updateBLoisir(long userId, double newBLoisir);
-
-
 
 }
 

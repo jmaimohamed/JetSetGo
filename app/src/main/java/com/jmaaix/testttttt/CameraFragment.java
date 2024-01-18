@@ -56,7 +56,6 @@ public class CameraFragment extends Fragment {
             imageView = view.findViewById(R.id.imageView);
             Button takePictureButton = view.findViewById(R.id.takePictureButton);
             Button consulterButton = view.findViewById(R.id.cons_facture);
-            TextView textView = view.findViewById(R.id.idfacturetext);
             // Set a click listener for the button
 
 

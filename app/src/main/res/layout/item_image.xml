@@ -19,7 +19,7 @@
             android:textAlignment="center"
             android:textStyle="italic"
             android:textSize="25dp"
-            android:textColor="@color/black"
+            android:textColor="@color/orange"
             android:text="" />
 
         <ImageView

@@ -13,12 +13,9 @@ import com.jmaaix.testttttt.entities.Budget;
 import com.jmaaix.testttttt.entities.Facture;
 import com.jmaaix.testttttt.entities.User;
 
+
 @Database(entities = {User.class, Budget.class, Facture.class,Note.class}, version = 1, exportSchema = false)
 
-import com.jmaaix.testttttt.DAO.NoteDao;
-import com.jmaaix.testttttt.DAO.UserDao;
-import com.jmaaix.testttttt.entities.Note;
-import com.jmaaix.testttttt.entities.User;
 
 public abstract class UserDatabase extends RoomDatabase {
 
