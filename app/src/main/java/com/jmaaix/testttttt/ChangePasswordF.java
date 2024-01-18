@@ -78,7 +78,7 @@ public class ChangePasswordF extends Fragment {
                         }
                     else
                     {
-                        Toast.makeText(getActivity(), hashedPassword+"!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "incorrect check please your field ", Toast.LENGTH_SHORT).show();
                     }
                 }
             }});
