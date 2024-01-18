@@ -147,4 +147,12 @@ public class fragment2 extends Fragment {
             fragmentTransaction.commit();
         }
 
+
+
+
+
+
+
+
+
 }

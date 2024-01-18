@@ -16,6 +16,8 @@ import java.util.List;
 
 @Dao
 public interface BudgetDao {
+
+
     @Insert
     void insertBudget(Budget budget);
 
@@ -42,10 +44,8 @@ public interface BudgetDao {
     double getBLosir(long userId);
 
 
-    @Query("UPDATE budget SET totalBudget = :totalbudget  WHERE userId = :userId")
+    @Query("UPDATE budget SET totalBudget = totalBudget + :totalbudget  WHERE userId = :userId")
     void updateTotalBudget(long userId, double totalbudget);
-
-
 
     @Query("UPDATE budget SET BFood = BFood + :newBFood WHERE userId = :userId")
     void updateBFood(long userId, double newBFood);
@@ -61,6 +61,8 @@ public interface BudgetDao {
 
     @Query("UPDATE budget SET BLoisir = BLoisir + :newBLoisir  WHERE userId = :userId")
     void updateBLoisir(long userId, double newBLoisir);
+
+
 
 }
 

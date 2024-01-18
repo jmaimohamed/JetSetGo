@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageCaptureException;
+
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
