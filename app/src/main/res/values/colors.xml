@@ -7,7 +7,7 @@
 
     <color name="orange">#FFC022</color>
 
-
+    <color name="buttonBackground">#3498db</color>
 
     <color name="Bar">#2CA7B5</color>
 </resources>

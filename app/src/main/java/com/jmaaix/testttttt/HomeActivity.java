@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
          else if (itemId == R.id.Rec) {
-            replaceFragment(new MyReclamationF());
+            replaceFragment( MyReclamationF.newInstance(loggedInUsername));
         }
 
 
