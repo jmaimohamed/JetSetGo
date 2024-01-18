@@ -2,6 +2,7 @@ package com.jmaaix.testttttt;
 
 import static android.text.style.TtsSpan.ARG_USERNAME;
 
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -87,6 +88,7 @@ public class UserAccountF extends Fragment {
         Information = view.findViewById(R.id.Info);
         delete = view.findViewById(R.id.Delete);
     magic = view.findViewById(R.id.Spes);
+    Button Logout = view.findViewById(R.id.LogOut);
         All_Users=view.findViewById(R.id.All_User);
         User user = userDao.getUserByEmail(this.Email);
         String userRole = user.getRole();
@@ -134,6 +136,7 @@ public class UserAccountF extends Fragment {
                                 fm.popBackStack();
                             }                            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(loginIntent);
+                            getActivity().finish();
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -167,6 +170,7 @@ public class UserAccountF extends Fragment {
                 }
             });
 
+
             Information.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -178,7 +182,15 @@ public class UserAccountF extends Fragment {
                     transaction.commit();
                 }
             });
+            Logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
         } else {
             delete.setVisibility(isLoggedIn ? View.VISIBLE : View.GONE);
             magic.setVisibility(isLoggedIn ? View.VISIBLE : View.GONE);

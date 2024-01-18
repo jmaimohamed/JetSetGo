@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Button RegisterButton = findViewById(R.id.Register);
         Button LoginButton = findViewById(R.id.LoginButton);
-        Button FingerPrintButton = findViewById(R.id.FingerPrint);
         EditText editEmail = findViewById(R.id.EditUsername);
         EditText editPassword = findViewById(R.id.EditPassword);
 

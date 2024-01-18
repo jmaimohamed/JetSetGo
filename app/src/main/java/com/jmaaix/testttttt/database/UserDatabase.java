@@ -13,7 +13,10 @@ import com.jmaaix.testttttt.entities.Budget;
 import com.jmaaix.testttttt.entities.Facture;
 import com.jmaaix.testttttt.entities.User;
 
-@Database(entities = {User.class, Budget.class, Facture.class}, version = 4, exportSchema = false)
+
+@Database(entities = {User.class, Budget.class, Facture.class,Note.class}, version = 1, exportSchema = false)
+
+
 public abstract class UserDatabase extends RoomDatabase {
 
     private static UserDatabase instance;
@@ -21,10 +24,11 @@ public abstract class UserDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract BudgetDao budgetDao();
     public abstract FactureDao factureDao();
+    public abstract NoteDao noteDao();
 
-    public static UserDatabase getInstance(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, "JETSETG")
+    public static UserDatabase getInstance(Context context){
+        if(instance== null){
+            instance = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, "JetSet")
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
