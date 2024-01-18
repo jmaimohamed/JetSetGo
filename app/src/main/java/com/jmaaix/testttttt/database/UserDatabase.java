@@ -13,7 +13,7 @@ import com.jmaaix.testttttt.entities.Budget;
 import com.jmaaix.testttttt.entities.Facture;
 import com.jmaaix.testttttt.entities.User;
 
-@Database(entities = {User.class, Budget.class, Facture.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Budget.class, Facture.class}, version = 4, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     private static UserDatabase instance;
