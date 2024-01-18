@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+
     tools:context=".MyReclamationF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/titleEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="46dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rec"
+        android:paddingLeft="16dp"
+        android:textColor="@color/black"
+        android:hint="Reclamation Title"
+        android:textColorHint="@color/black" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/contentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleEditText"
+        android:layout_marginTop="16dp"
+        android:hint="Reclamation Content"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/rec"
+        android:textColor="@color/black"
+        android:inputType="textMultiLine"
+        android:minLines="5" />
+
+    <!-- Groupe de boutons dans une même ligne -->
+    <LinearLayout
+        android:id="@+id/buttonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/contentEditText"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Enregistrer"
+            android:background="@drawable/rec"
+            android:layout_marginEnd="4dp"
+            />
+
+        <Button
+            android:id="@+id/buttonchat"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rec"
+
+            android:text="Bot"
+            android:layout_marginEnd="4dp"
+            />
+
+        <Button
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:background="@drawable/rec"
+            android:layout_marginEnd="4dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/reclamationsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:text="Reclamations"
+        android:textColor="@color/black"
+        android:background="@drawable/rec"
+        android:layout_below="@id/buttonGroup"
+        android:layout_marginTop="16dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/reclamationsScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light">
+
+            <LinearLayout
+                android:id="@+id/reclamationsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+    </RelativeLayout>
+
+</LinearLayout>
